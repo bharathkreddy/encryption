@@ -14,7 +14,7 @@ A symmetric key uses the same string for both encryption and decryption which me
 Having said that, using symmetric encryption works well for some tasks, such as moving a file between two computers. And it's a much easier method to begin with than asymmetric encryption.
 
 Some algorithms used are
-+ [AES : Advanced Encryption Standard](/Encryption%20algorithms/AES)
++ [AES : Advanced Encryption Standard](https://github.com/bharathkreddy/encryption/blob/main/Encryption%20algorithms/AES.md)
 + DES (Advanced Encryption Standard)
 + IDEA (International Data Encryption Algorithm. IDEA was originally meant to be a replacement for the DES standard. IDEA uses a 128-bit encryption key.)
 + RC5 (Rivest Cipher, uses variable length encryption keys ranging up to 2040 bits)
