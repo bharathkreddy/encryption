@@ -1,4 +1,5 @@
-#Encryption - assymetric key
+# Encryption - assymetric key
+
 1. check current verison of openssl
 ```
 openssl version
@@ -24,10 +25,34 @@ openssl genrsa -aes256 -passout file:password.txt -out brk_private.pem 1024
 4. Extract the public key details in same way as above but in a file which can then be shared as a public key. 
     - pass in the password file and write out the public key
     ``` 
-    openssl rsa -in alice_private.pem -pubout
+    openssl rsa -in brk_private.pem -passin file:password.txt -pubout > brk_public.pem
     ```
 5. the files are rendedred in hexdecimal but can be viewed in same way but this time pass in the public key
 ```
 openssl rsa -in brk_public.pem -pubin -noout -text
 ```
-6. 
+6. ENCRYPT the message but points to note
+    - RSA can encrypt a file no larger than the size of the modulus i.e. key length. 
+    - usually only keys are ecrypted using RSA and once authentication is established a symertic key is used to encrypt the files using diffie-hellman method.
+    - Our file is small and hence we can ecrypt it using.
+    ```
+    openssl rsautl -sign -inkey brk_private.pem -passin file:password.txt -in file.txt -out encrypted_file.txt
+    ```
+    - this creates the encrypted file in binary encoding but we can also do this in base64 encoding if needed. 
+
+7. Decrypt the file. 
+    - cat the contents of encrypted file to be sure its encrypted. 
+    - hedump displays the contents of binary files in hexadecimal, decimal, octal, or ASCII.
+    ``` hexdump -C ./ecrypted_file.txt
+    -  Decrypt the key using public key
+    ```
+    openssl rsautl -verify -pubin -inkey brk_public.pem -in encrypted_file.txt -out decrypted_file.txt
+    ```
+
+8. to ecrypt using public key and decrypt using private key
+```
+openssl rsautl -encrypt -inkey public_key.pem -pubin -in <decrypted file> -out <encrypted file>
+openssl rsautl -decrypt -inkey private_key.pem -in <encrypted file> -out <decrypted file>
+```
+
+
