@@ -2,5 +2,5 @@ AES is a 128 bit symmetric key block cipher. This means it takes 128 bits of pla
 
 The basis for AES is SP network which is an s-box ( substitution box ) over a p-box (permutation box)
 
-![SP NET](/Encryption%20algorithms/Images/SP%20Net.png)
+![SP NET](https://github.com/bharathkreddy/encryption/blob/main/Images/SP%20Net.png)
 
