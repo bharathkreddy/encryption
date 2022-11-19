@@ -1,1 +1,0 @@
-Unlike AES, Chacha is a stream cipher. 

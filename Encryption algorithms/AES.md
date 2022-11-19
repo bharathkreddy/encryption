@@ -4,7 +4,7 @@ The basis for AES or any modern encryption, is SP network which is an s-box ( su
 
 S-box has arbitary substitution rules as shown to the right, and p-box has arbitary permutations. The size of in and out is called the block size. AES uses 128 bit block. 
 
-![SP NET](https://github.com/bharathkreddy/encryption/blob/main/Images/SP%20Net.png)
+![SP NET](/Images/SP%20Net.png)
 
 Generally SP Nets are reversible, here comes the key. We chain each round of SP net with a key XOR operation.
 
@@ -14,7 +14,7 @@ input XOR key chunk1 -> input to SP net in blocks of 128 bits -> XOR key chunk 2
 
 AES is a form of SP net but here are the borad steps takeing
 1. bytes are first ordered like this 
-![AES bytes](https://github.com/bharathkreddy/encryption/blob/main/Images/AES%20ordering.png)
+![AES bytes](/Images/AES%20ordering.png)
 2. substitue bytes (same as in S of an SP network)
 3. Shift rows in below fashion
     - Row 0 stays as is,
