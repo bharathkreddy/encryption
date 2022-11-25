@@ -15,7 +15,7 @@ Now open any https site ex: www.instagram.com and do the same what do you see ?
 
 1. HTTPS is HTTP over TLS
 2. TLS sits between TCP and Application layer.
-3. All data is sent encrypted over TLS.\
+3. All data is sent encrypted over TLS.
 4. Server and Client handshake during TLS establishes the protocol, ciphersuite, and the key using [Diffe-Hellman exchange.](/Encryption%20algorithms/Diffe-hellman.md)
 
 ![tls1](/Images/tls1.jpeg)

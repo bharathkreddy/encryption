@@ -9,7 +9,7 @@ Just like with doors, keys are used to lock (encrypt) and unlock (decrypt) infor
 
 As an example, a message with sensitive information needs to be sent securely from one person to another. The sender will encrypt the message with one key, and the receiver will decrypt it with another.
 
-### [Difference between **https** and **http**](/Encryption%20algorithms/https_and_http.md)
+### [HISTORY OF ENCRYPTION](History.md)
 
 ## 1. Symmetric encryption
 
@@ -71,6 +71,8 @@ If we send a message and a digest, the recipient can use the same hash function 
 
 ![hash](/Images/hash_where.png)
 
+### [Difference between **https** and **http**](/Encryption%20algorithms/https_and_http.md)
+
 ### Hashing algorithms
 
 ![hash algos](/Images/hash_algorithms.png)
@@ -111,6 +113,8 @@ When users connect to the site, their browser looks at the certificate, checks t
 
 
 ![CA](/Images/CA.png)
+
+
 
 > *The cryptographic world is vast and complex, but I hope this article gives you a basic mental model of the core goals and components it uses. With a solid foundation in the concepts, you'll be able to continue learning more.*
 
