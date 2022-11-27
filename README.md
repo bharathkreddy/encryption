@@ -12,17 +12,24 @@ As an example, a message with sensitive information needs to be sent securely fr
 
 ## 1. Symmetric encryption
 
-A symmetric key uses the same string for both encryption and decryption which means that both the sender and receiver need the same key. This type of encryption is **not very safe** because sharing the one key in a secure and secretive manner is very difficult to do.
-
-Having said that, using symmetric encryption works well for some tasks, such as moving a file between two computers. And it's a much easier method to begin with than asymmetric encryption.
+A symmetric key uses the same string for both encryption and decryption which means that both the sender and receiver need the same key. 
 
 ![Symm key Basic](/Images/symm_key_basic.png)
 
-There are [serveral algorithms](History.md) used for symmetric key encryption. 
+There are [serveral algorithms](History.md) used for symmetric key encryption. In summary, here are the lessons learnt.
+1. Caesar's Cipher: Encryption strength should not be derived from secrecy of algorithm.
+2. Substitution Cipher: Patterns weaken encryption. 
+3. Vigeneres Cipher: Key should not be repeated.
+4. Stream Ciphers: Authenticity, key Re-use & low-entropy issues. 
+5. Block Ciphers: Current day ciphers. AES or chacha is generally used. (1975 DES, 1976 D-H key Exchange, 1991 IDES, 2002 AES, 2008 ChaCha20)  
 
 ![Algos](/Images/algos.png)
 
+#### Challenges with Symmetric Encryption
+1. Key Distribution Problem. This was solved by [Diffie-Hellman](/Encryption%20algorithms/D-H.md) in 1976. This is considered a landmark and the most important discovery in cryptography.
+2. Does not solve Authenticity.
 
+#### 
 
 ## 2. Asymmetric encryption
 

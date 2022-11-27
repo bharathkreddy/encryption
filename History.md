@@ -71,9 +71,7 @@ While stream ciphers encrypt bit by bit, a block cipher takes a block of bits an
 
 
 ##  BLOCK CIPHER ALGORITHMS 
--  [DES](https://en.wikipedia.org/wiki/Data_Encryption_Standard) 
-
-    56-bit block cipher. You can find the [code here](/Implimentation_code/pyDes.py) and an [usage here](/Implimentation_code/DESexample.py) for both ECB & CBC modes.
+-  [DES](/Encryption%20algorithms/DES.md) 
 
 -  [AES : Advanced Encryption Standard](/Encryption%20algorithms/AES.md) Current De facto standard. Key lengths 126, 192 and 256. 
 
