@@ -9,7 +9,6 @@ Just like with doors, keys are used to lock (encrypt) and unlock (decrypt) infor
 
 As an example, a message with sensitive information needs to be sent securely from one person to another. The sender will encrypt the message with one key, and the receiver will decrypt it with another.
 
-### [HISTORY OF ENCRYPTION](History.md)
 
 ## 1. Symmetric encryption
 
@@ -19,19 +18,11 @@ Having said that, using symmetric encryption works well for some tasks, such as 
 
 ![Symm key Basic](/Images/symm_key_basic.png)
 
-There are serveral algorithms used for symmetric key encryption. 
+There are [serveral algorithms](History.md) used for symmetric key encryption. 
 
 ![Algos](/Images/algos.png)
 
-+ [AES : Advanced Encryption Standard](/Encryption%20algorithms/AES.md) Current De facto standard. Key lengths 126, 192 and 256. 
-+ [chacha20](https://en.wikipedia.org/wiki/Salsa20): Closest to AES, light weight. 
-+ [DES : Data Encryption Standard](https://www.techtarget.com/searchsecurity/definition/Data-Encryption-Standard)
-+ [IDEA : International Data Encryption Algorithm](https://en.wikipedia.org/wiki/International_Data_Encryption_Algorithm) IDEA was originally meant to be a replacement for the DES standard. IDEA uses a 128-bit encryption key
-+ [RC5 : Rivest Cipher](https://en.wikipedia.org/wiki/RC4), uses variable length encryption keys ranging up to 2040 bits
-+ [RSA](https://en.wikipedia.org/wiki/RSA_(cryptosystem))
 
-### 1.1 [SYMMETRIC KEYS IMPLIMENTATION USING GnuPG](LINK)
-### 1.2 [USING OPENSSL]()
 
 ## 2. Asymmetric encryption
 
