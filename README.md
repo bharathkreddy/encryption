@@ -26,7 +26,9 @@ There are [serveral algorithms](History.md) used for symmetric key encryption. I
 ![Algos](/Images/algos.png)
 
 #### Challenges with Symmetric Encryption
-1. Key Distribution Problem. This was solved by [Diffie-Hellman](/Encryption%20algorithms/D-H.md) in 1976. This is considered a landmark and the most important discovery in cryptography.
+1. Key Distribution Problem. 
+    + This was solved by [Diffie-Hellman](/Encryption%20algorithms/D-H.md) in 1976. This is considered a landmark and the most important discovery in cryptography.
+    + Current day, it is advice to use [Elliptic-Curve](/Encryption%20algorithms/elliptic-curve.md) instead of D-H method. 
 2. Does not solve Authenticity.
 
 #### 

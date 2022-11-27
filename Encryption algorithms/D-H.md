@@ -7,6 +7,4 @@ Alice and Bob choose a generator g and a large prime p (generator ^ i mod p : ge
 ![DH3](/Images/Diffie-Hellman_Key_Exchange.png)
 ![DH4](/Images/dh%20secrecy%20chart.png)
 
-
-
-
+[Implementation of Diffie Helman Key exchange.](/Implimentation_code/Diffie_helman.py)
