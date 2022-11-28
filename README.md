@@ -31,7 +31,6 @@ There are [serveral algorithms](History.md) used for symmetric key encryption. I
     + Current day, it is advice to use [Elliptic-Curve](/Encryption%20algorithms/elliptic-curve.md) instead of D-H method. 
 2. Does not solve Authenticity.
 
-#### 
 
 ## 2. Asymmetric encryption
 
@@ -46,30 +45,41 @@ Two primary usecases for Asymmetric keys
 
 ![Usecase2](/Images/assymetric_usecase2.png)
 
-[RSA](/Encryption%20algorithms/RSA.md) is the current heavyweight champion of asymmetric ciphers.
+[RSA](/Encryption%20algorithms/RSA.md) is the current heavyweight champion of asymmetric ciphers and was developed in 1977.
 
 A major downside to asymmetric ciphers is that they are computationally expensive. Can we get authentication with symmetric ciphers to speed things up? If you only share a key with one other person, yes. But that breaks down quickly. Suppose a group of people want to communicate with one another using a symmetric cipher. The group members could establish keys for each unique pairing of members and encrypt messages based on the recipient, but a group of 20 people works out to 190 pairs of members total and 19 keys for each individual to manage and secure. By using an asymmetric cipher, each person only needs to guard their own private key and have access to a listing of public keys.
 
-Asymmetric ciphers are also limited in the amount of data they can encrypt. Like block ciphers, you have to split a longer message into pieces. In practice then, asymmetric ciphers are often used to establish a confidential, authenticated channel which is then used to exchange a shared key for a symmetric cipher. The symmetric cipher is used for subsequent communications since it is much faster. TLS can operate in exactly this fashion.
+#### Challenges with Asymmetric Encryption
 
-### 2.1 [Asymmetric key encryption using GnuPg](/Implimentation_code/Asymmetric_key_GnuPg.md)
+Asymmetric ciphers are also limited in the amount of data they can encrypt. Like block ciphers, you have to split a longer message into pieces. In practice then, asymmetric ciphers are often used to establish a confidential, authenticated channel which is then used to exchange a shared key for a symmetric cipher. The symmetric cipher is used for subsequent communications since it is much faster. TLS can operate in exactly this fashion. Asymetric encryption is very slow compared to symetric encryption.
 
-### 2.2 [Asymmetric key encryption using OpenSSL](/Implimentation_code/Asymmetric_key_openssl.md)
 
 ## 3. Cryptographic Hash function
 
-A cryptographic hash function is meant to take an input of arbitrary size and produce a fixed size output (often called a digest). If we can find any two messages that create the same digest, that's a collision and makes the hash function unsuitable for cryptography. If we have an infinite world of messages and a fixed sized output, there are bound to be collisions, but if we can find any two messages that collide **without** a monumental investment of computational resources, that's a deal-breaker. Worse still would be if we could take a specific message and could then find another message that results in a collision.
+A cryptographic hash function is meant to take an input of arbitrary size and type and produce a fixed size binary output (often called a digest). If we can find any two messages that create the same digest, that's a collision and makes the hash function unsuitable for cryptography. If we have an infinite world of messages and a fixed sized output, there are bound to be collisions, but if we can find any two messages that collide **without** a monumental investment of computational resources, that's a deal-breaker. Worse still would be if we could take a specific message and could then find another message that results in a collision. A good hash function has following features:
+
+1. It is a oneway deterministic function. (Same input gives same hash)
+2. The output is dependent on all input bits. (Change one bit and everything chagnes)
+3. Output is uniformly distributed. 
+4. Impossible (difficult) to make a collision.
 
 As well, the hash function should be **one-way**: given a digest, it should be computationally infeasible to determine what the message is. Respectively, these requirements are called:
 1. Pre-image resistance: Given a hash, it should be difficult to find the message from which it was created, even if you know the hash function used.
 2. Second pre-image resistance: Given a message, it should be difficult to find another message that, when hashed, generates the same hash.
 3. Collision resistance: It should be difficult to find any two messages that generate the same hash.
   
-If we meet these requirements, our digest acts as a kind of fingerprint for a message. No two people have the same fingerprints, and you can't take a fingerprint and turn it back into a person.
+If we meet these requirements, our digest acts as 
+1. Digital Signature: A kind of fingerprint for a message. No two people have the same fingerprints, and you can't take a fingerprint and turn it back into a person.
+2. Shadow files (Passwords) : [How do you think passwords are stored in a server?](https://auth0.com/blog/adding-salt-to-hashing-a-better-way-to-store-passwords/)
+3. HMAC: Just like digital sign uses Asymmetric keys, HMACS use symetric keys.
+4. Make deterministic Unique IDs: Commit id's on git to airflow dag ids - every software application has these.
 
 If we send a message and a digest, the recipient can use the same hash function to generate an independent digest. If the two digests match, they know the message hasn't been altered. SHA-256 is the most popular cryptographic hash function.
 
 ![hash](/Images/hash_where.png)
+[Implementation of hash using python hashlib](/Implimentation_code/hash.py)
+[Digital signature using hash function](/Implimentation_code/digital_signature.py)
+
 
 ### [Difference between **https** and **http**](/Encryption%20algorithms/https_and_http.md)
 

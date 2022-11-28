@@ -6,8 +6,16 @@ The primary benefit promised by elliptic curve cryptography is a smaller key siz
 
 An elliptic curve is the set of points that satisfy a specific mathematical equation. The equation for an elliptic curve looks something like this:
 
-$ y^2  = x^3 + ax + b $
+$ y^2  = x^3 + ax + b $ where a,b are the parameters of the curve. These curves get names depending on values of a & B ex: 
++ NIST P-256: y^2 = x^3-3x+41058363725152142129326129780047268409114441015993725554835256314039467401291 & modulo p = 2^256 - 2^224 + 2^192 + 2^96 - 1 , 
++ X25519: y^2 = x^3+48662x^2+x & modulo p = 2^2252+ 27742317777372353535851937790883648493 (modulo p is order i.e. after how many numbers we return to start point of curve. )
 
-This looks like this
 ![EC](/Images/Elliptic_curve.png)
+
+While D-H method uses modular arithmetic to have generator work, Elliptic curves starts with any point on the curve g. If g is added to itself, it is the point opposite to a tagent from g cutting the curve. 3g(g+g+g) can be found by drawing a line between g and 2g and 3g is the point opposite where this line cuts the curve, and so on..
+
+So we are able to move around the curve at random fashion just as how we were moving around the modulus circle at random.
+
+so if we get a point on curve its impossible to calculate "?"g this "?" is our private no. Similar to how a & b were in D-H system. 
+
 
