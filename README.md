@@ -77,25 +77,20 @@ If we meet these requirements, our digest acts as
 If we send a message and a digest, the recipient can use the same hash function to generate an independent digest. If the two digests match, they know the message hasn't been altered. SHA-256 is the most popular cryptographic hash function.
 
 ![hash](/Images/hash_where.png)
-[Implementation of hash using python hashlib](/Implimentation_code/hash.py)
-[Digital signature using hash function](/Implimentation_code/digital_signature.py)
-
-
-### [Difference between **https** and **http**](/Encryption%20algorithms/https_and_http.md)
-
-### Hashing algorithms
-
 ![hash algos](/Images/hash_algorithms.png)
 
-### [3.1 MD5 implementation](/Implimentation_code/md5.md)
-### [3.2 SHA implementation](/Implimentation_code/SHA.md)
-### 3.3 HMACs 
+[Implementation of hash using python hashlib](/Implimentation_code/hash.py)
+[MD5 implementation](/Implimentation_code/md5.md)
+[SHA implementation](/Implimentation_code/SHA.md)
+[Digital signature using hash function](/Implimentation_code/digital_signature.py)
 
-Include a key with hashing process. We take key and input data in creation of the hash. This key is required by the other side to get the correct hash - adding additional layer of security. This can be used with MD5 or SHA.
+### 3.3 HMACs 
 
 Hashes sound great, but what good is sending a digest with a message if someone can tamper with your message and then tamper with the digest too? We need to mix hashing in with the ciphers we have. For symmetric ciphers, we have message authentication codes (MACs). MACs come in different forms, but an HMAC is based on hashing. An HMAC takes the key K and the message M and blends them together using a hashing function H with the formula H(K + H(K + M)) where "+" is concatenation. Why this formula specifically? It has to do with protecting the integrity of the HMAC itself. The MAC is sent along with an encrypted message. Eve could blindly manipulate the message, but as soon as Bob independently calculates the MAC and compares it to the MAC he received, he'll realize the message has been tampered with.
 
 ## PUTTING IT ALL TOGETHER
+
+### [Difference between **https** and **http**](/Encryption%20algorithms/https_and_http.md)
 
 For asymmetric ciphers, we have digital signatures. In RSA, encryption with a public key makes something only the private key can decrypt, but the inverse is true as well and can create a type of signature. If only I have the private key and encrypt a document, then only my public key will decrypt the document, and others can implicitly trust that I wrote it: authentication. In fact, we don't even need to encrypt the entire document. If we create a digest of the document, we can then encrypt just the fingerprint. Signing the digest instead of the whole document is faster and solves some problems around the size of a message that can be encrypted using asymmetric encryption. Recipients decrypt the digest, independently calculate the digest for the message, and then compare the two to ensure integrity. The method for digital signatures varies for other asymmetric ciphers, but the concept of using the public key to verify a signature remains.
 
