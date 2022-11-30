@@ -87,9 +87,9 @@ If we send a message and a digest, the recipient can use the same hash function 
 
 | Security goal      | Hash   | HMAC    | Digital Signature | Description |
 | :---               | :----: |   :---: |  :---:            | :---
-| Integrity          | - [x]  | - [x]   | - [x]             | Can the recipient be confident that the message has not been modified? |
-| Authenticity       |        | - [x]   | - [x]             | Can the recipient be confident that the message originates from the sender? |
-| Non-repudation     |        |         | - [x]             | Can the sender shouldnt be able to repudite their message? |
+| Integrity          | -[x]  | -[x]   | -[x]             | Can the recipient be confident that the message has not been modified? |
+| Authenticity       |        | - [x]   | -[x]             | Can the recipient be confident that the message originates from the sender? |
+| Non-repudation     |        |         | -[x]             | Can the sender shouldnt be able to repudite their message? |
 | Kind of keys       | NONE   | Symmetric | Asymmetric  |  |
 
 ### [Difference between **https** and **http**](/Encryption%20algorithms/https_and_http.md)
