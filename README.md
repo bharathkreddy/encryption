@@ -92,6 +92,8 @@ If we send a message and a digest, the recipient can use the same hash function 
 | Non-repudation     |     N   |    N     | Y             | Can the sender shouldnt be able to repudite their message? |
 | Kind of keys       | NONE   | Symmetric | Asymmetric  |  |
 
+
+
 ### [Difference between **https** and **http**](/Encryption%20algorithms/https_and_http.md)
 
 For asymmetric ciphers, we have digital signatures. In RSA, encryption with a public key makes something only the private key can decrypt, but the inverse is true as well and can create a type of signature. If only I have the private key and encrypt a document, then only my public key will decrypt the document, and others can implicitly trust that I wrote it: authentication. In fact, we don't even need to encrypt the entire document. If we create a digest of the document, we can then encrypt just the fingerprint. Signing the digest instead of the whole document is faster and solves some problems around the size of a message that can be encrypted using asymmetric encryption. Recipients decrypt the digest, independently calculate the digest for the message, and then compare the two to ensure integrity. 
