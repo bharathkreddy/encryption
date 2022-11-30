@@ -28,7 +28,7 @@ There are [serveral algorithms](History.md) used for symmetric key encryption. I
 #### Challenges with Symmetric Encryption
 1. Key Distribution Problem. 
     + This was solved by [Diffie-Hellman](/Encryption%20algorithms/D-H.md) in 1976. This is considered a landmark and the most important discovery in cryptography.
-    + Current day, it is advice to use [Elliptic-Curve](/Encryption%20algorithms/elliptic-curve.md) instead of D-H method. 
+    + Current day, it is adviced to use [Elliptic-Curve](/Encryption%20algorithms/elliptic-curve.md) instead of D-H method. 
 2. Does not solve Authenticity.
 
 
@@ -58,10 +58,13 @@ Asymmetric ciphers are also limited in the amount of data they can encrypt. Like
 
 A cryptographic hash function is meant to take an input of arbitrary size and type and produce a fixed size binary output (often called a digest). If we can find any two messages that create the same digest, that's a collision and makes the hash function unsuitable for cryptography. If we have an infinite world of messages and a fixed sized output, there are bound to be collisions, but if we can find any two messages that collide **without** a monumental investment of computational resources, that's a deal-breaker. Worse still would be if we could take a specific message and could then find another message that results in a collision. A good hash function has following features:
 
-1. It is a oneway deterministic function. (Same input gives same hash)
+1. It is a one-way deterministic function aka trapdoor functions. (Same input gives same hash)
 2. The output is dependent on all input bits. (Change one bit and everything chagnes)
 3. Output is uniformly distributed. 
 4. Impossible (difficult) to make a collision.
+
+![hash](/Images/hash_where.png)
+![hash algos](/Images/hash_algorithms.png)
 
 As well, the hash function should be **one-way**: given a digest, it should be computationally infeasible to determine what the message is. Respectively, these requirements are called:
 1. Pre-image resistance: Given a hash, it should be difficult to find the message from which it was created, even if you know the hash function used.
@@ -69,30 +72,29 @@ As well, the hash function should be **one-way**: given a digest, it should be c
 3. Collision resistance: It should be difficult to find any two messages that generate the same hash.
   
 If we meet these requirements, our digest acts as 
-1. Digital Signature: A kind of fingerprint for a message. No two people have the same fingerprints, and you can't take a fingerprint and turn it back into a person.
+1. Digital Signature: A kind of fingerprint for a message. No two people have the same fingerprints, and you can't take a fingerprint and turn it back into a person. [Digital signature using hash function](/Implimentation_code/digital_signature.py)
 2. Shadow files (Passwords) : [How do you think passwords are stored in a server?](https://auth0.com/blog/adding-salt-to-hashing-a-better-way-to-store-passwords/)
-3. HMAC: Just like digital sign uses Asymmetric keys, HMACS use symetric keys.
+3. [HMAC](/Encryption%20algorithms/HMAC.md): Just like digital sign uses Asymmetric keys, HMACS use symetric keys.
 4. Make deterministic Unique IDs: Commit id's on git to airflow dag ids - every software application has these.
 
 If we send a message and a digest, the recipient can use the same hash function to generate an independent digest. If the two digests match, they know the message hasn't been altered. SHA-256 is the most popular cryptographic hash function.
 
-![hash](/Images/hash_where.png)
-![hash algos](/Images/hash_algorithms.png)
+- [Implementation of hash using python hashlib](/Implimentation_code/hash.py)
+- [MD5 implementation](/Implimentation_code/md5.md)
+- [SHA implementation](/Implimentation_code/SHA.md)
 
-[Implementation of hash using python hashlib](/Implimentation_code/hash.py)
-[MD5 implementation](/Implimentation_code/md5.md)
-[SHA implementation](/Implimentation_code/SHA.md)
-[Digital signature using hash function](/Implimentation_code/digital_signature.py)
+# PUTTING IT ALL TOGETHER
 
-### 3.3 HMACs 
-
-Hashes sound great, but what good is sending a digest with a message if someone can tamper with your message and then tamper with the digest too? We need to mix hashing in with the ciphers we have. For symmetric ciphers, we have message authentication codes (MACs). MACs come in different forms, but an HMAC is based on hashing. An HMAC takes the key K and the message M and blends them together using a hashing function H with the formula H(K + H(K + M)) where "+" is concatenation. Why this formula specifically? It has to do with protecting the integrity of the HMAC itself. The MAC is sent along with an encrypted message. Eve could blindly manipulate the message, but as soon as Bob independently calculates the MAC and compares it to the MAC he received, he'll realize the message has been tampered with.
-
-## PUTTING IT ALL TOGETHER
+| Security goal      | Hash   | HMAC    | Digital Signature | Description |
+| :---               | :----: |   :---: |  :---:            | :---
+| Integrity          | - [x]  | - [x]   | - [x]             | Can the recipient be confident that the message has not been modified? |
+| Authenticity       |        | - [x]   | - [x]             | Can the recipient be confident that the message originates from the sender? |
+| Non-repudation     |        |         | - [x]             | Can the sender shouldnt be able to repudite their message? |
+| Kind of keys       | NONE   | Symmetric | Asymmetric  |  |
 
 ### [Difference between **https** and **http**](/Encryption%20algorithms/https_and_http.md)
 
-For asymmetric ciphers, we have digital signatures. In RSA, encryption with a public key makes something only the private key can decrypt, but the inverse is true as well and can create a type of signature. If only I have the private key and encrypt a document, then only my public key will decrypt the document, and others can implicitly trust that I wrote it: authentication. In fact, we don't even need to encrypt the entire document. If we create a digest of the document, we can then encrypt just the fingerprint. Signing the digest instead of the whole document is faster and solves some problems around the size of a message that can be encrypted using asymmetric encryption. Recipients decrypt the digest, independently calculate the digest for the message, and then compare the two to ensure integrity. The method for digital signatures varies for other asymmetric ciphers, but the concept of using the public key to verify a signature remains.
+For asymmetric ciphers, we have digital signatures. In RSA, encryption with a public key makes something only the private key can decrypt, but the inverse is true as well and can create a type of signature. If only I have the private key and encrypt a document, then only my public key will decrypt the document, and others can implicitly trust that I wrote it: authentication. In fact, we don't even need to encrypt the entire document. If we create a digest of the document, we can then encrypt just the fingerprint. Signing the digest instead of the whole document is faster and solves some problems around the size of a message that can be encrypted using asymmetric encryption. Recipients decrypt the digest, independently calculate the digest for the message, and then compare the two to ensure integrity. 
 
 Now that we have all the major pieces, we can implement a system that has all three of the attributes we're looking for. Alice picks a secret symmetric key and encrypts it with Bob's public key. Then she hashes the resulting ciphertext and uses her private key to sign the digest. Bob receives the ciphertext and the signature, computes the ciphertext's digest and compares it to the digest in the signature he verified using Alice's public key. If the two digests are identical, he knows the symmetric key has integrity and is authenticated. He decrypts the ciphertext with his private key and uses the symmetric key Alice sent him to communicate with her confidentially using HMACs with each message to ensure integrity. There's no protection here against a message being replayed. To handle that issue, we would need some sort of "handshake" that could be used to establish a random, short-lived session identifier.
 
